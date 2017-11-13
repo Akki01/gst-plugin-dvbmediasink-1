@@ -1188,8 +1188,7 @@ static GstFlowReturn gst_dvbvideosink_render(GstBaseSink *sink, GstBuffer *buffe
 				self->time_inc_bits = 0;
 				while (time_inc_res)
 				{ // count bits
-					++self->time_inc_bits;
-					time_inc_res >>= 1;
+					++self->time_inc_bits;					time_inc_res >>= 1;
 				}
 			}
 		}
@@ -1240,7 +1239,7 @@ static GstFlowReturn gst_dvbvideosink_render(GstBaseSink *sink, GstBuffer *buffe
 #if GST_VERSION_MAJOR < 1
 	if (GST_BUFFER_TIMESTAMP(buffer) != GST_CLOCK_TIME_NONE)
 #else
-	if (GST_BUFFER_PTS_IS_VALID(buffer) || (self->codec_type == CT_DIVX311 && GST_BUFFER_DTS_IS_VALID(buffer)))
+	if (GST_BUFFER_PTS_IS_VALID(buffer) || (self->codec_type == CT_DIVX311 && GST_BUFFER_DTS_IS_VALID(buffer)) || GST_BUFFER_DTS_IS_VALID(buffer))
 #endif
 	{
 		pes_header[7] = 0x80; /* pts */
